@@ -3,7 +3,6 @@ import { Button } from 'semantic-ui-react'
 import queryString from 'query-string'
 import ListeningRoom from './ListeningRoom'
 
-const usersAPI = 'http://localhost:3000/api/v1/users'
 
 class Login extends Component {
 
@@ -20,10 +19,7 @@ class Login extends Component {
     }
 
     fetchUser = () => {
-        let parsed = queryString.parse(window.location.search)
-        
-        console.log(parsed, 'query string')
-    
+        let parsed = queryString.parse(window.location.search)    
         fetch('http://localhost:3000/api/v1/users', {
             method: 'POST',
             headers: { 
@@ -42,9 +38,9 @@ class Login extends Component {
     
     renderFrontPage = () => {
         return this.state.userData.name ? 
-        <ListeningRoom data={this.state}/> :
+        <ListeningRoom user={this.state.userData}/> :
         <div>
-        <img src="https://icdn9.digitaltrends.com/image/digitaltrends/european-audio-teams-b-sharp-turntable-review-4214-1920x1280.jpg" style={{ width: 1000 }} />
+        <img src="https://icdn9.digitaltrends.com/image/digitaltrends/european-audio-teams-b-sharp-turntable-review-4214-1920x1280.jpg" alt="record player" style={{ width: 1000 }} />
         <Button as="a" href="http://localhost:3000/api/v1/login" >
         Log in through Spotify</Button>
         </div>
@@ -52,11 +48,9 @@ class Login extends Component {
     }
 
     render() {
-        console.log(this.state, 'state')
         return (
             <div>
                 {this.renderFrontPage()} 
-                
             </div>
         )
     }
