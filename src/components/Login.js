@@ -1,50 +1,23 @@
-import React, { Component } from 'react'
-import { Button } from 'semantic-ui-react'
-import queryString from 'query-string'
-import ListeningRoom from './ListeningRoom'
-
+import React, { Component } from 'react';
+import { Button } from 'semantic-ui-react';
+import ListeningRoom from './ListeningRoom';
+import { connect } from 'react-redux';
+import { getUser } from '../services/backend'
 
 class Login extends Component {
 
-    constructor(){
-        super()
-        this.state = {
-            isLoggedIn: false,
-            userData: {}
-        }
-    }
-
     componentDidMount = () => {
-        this.fetchUser()
-    }
-
-    fetchUser = () => {
-        let parsed = queryString.parse(window.location.search)    
-        fetch('http://localhost:3000/api/v1/users', {
-            method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(parsed)
-            
-        })
-        .then(r => r.json())
-        .then(data => {
-            this.setState({
-                userData: data
-            })
-        })
+        getUser().then(data => { this.props.dispatch({ type: "GET_USER", data: data }) })
     }
     
     renderFrontPage = () => {
-        return this.state.userData.name ? 
-        <ListeningRoom user={this.state.userData}/> :
+        return this.props.userData.name ? 
+        <ListeningRoom user={this.userData}/> :
         <div>
         <img src="https://icdn9.digitaltrends.com/image/digitaltrends/european-audio-teams-b-sharp-turntable-review-4214-1920x1280.jpg" alt="record player" style={{ width: 1000 }} />
         <Button as="a" href="http://localhost:3000/api/v1/login" >
         Log in through Spotify</Button>
         </div>
-        
     }
 
     render() {
@@ -55,5 +28,8 @@ class Login extends Component {
         )
     }
 }
+let mapStateToProps = (state) => {
+    return state.login
+}
 
-export default Login
+export default connect(mapStateToProps)(Login)

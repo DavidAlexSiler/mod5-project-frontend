@@ -1,21 +1,22 @@
 import React from 'react'
 import 'semantic-ui-css/semantic.min.css';
+import { connect } from 'react-redux'
 
 
-export default function UserCard(props) {
+const UserCard = (props) => {
     console.log(props.user)
     return (
         <div className="ui card">
             <div className="image">
-                <img src={props.user.image} alt={'SHOULDA PUT A PICTURE'} />
+                <img src={props.userData.image} alt={'SHOULDA PUT A PICTURE'} />
             </div>
                 <div className="content">
-                    <a className="header">{props.user.name}</a>
+                    <a className="header">{props.userData.name}</a>
                     <div className="meta">
-                        <span className="location">{props.user.country}</span>
+                        <span className="location">{props.userData.country}</span>
                     </div>
                     <div className="description">
-                        {props.user.name} is a swamp buggy badass!
+                        {props.userData.name} is a swamp buggy badass!
                     </div>
                 </div>
                 <div className="extra content">
@@ -27,3 +28,9 @@ export default function UserCard(props) {
             </div>
     )
 }
+
+let mapStateToProps = (state) => {
+    return state.login
+}
+
+export default connect(mapStateToProps)(UserCard)

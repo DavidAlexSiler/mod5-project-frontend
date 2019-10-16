@@ -3,15 +3,21 @@ import 'semantic-ui-css/semantic.min.css';
 import NavBar from './NavBar'
 import UserContainer from '../containers/UserContainer'
 import SongSearch from './SongSearch';
+import { connect } from 'react-redux'
 
 
-export default function ListeningRoom(props) {
-    console.log(props.user.name, 'porps')
+const ListeningRoom = (props) => {
     return (
         <div>
             <NavBar />
-            <UserContainer user={props.user}/>
-            <SongSearch user={props.user}/>
+            <UserContainer />
+            <SongSearch />
         </div>
     )
 }
+
+let mapStateToProps = (state) => {
+    return state.login
+}
+
+export default connect(mapStateToProps)(ListeningRoom)
