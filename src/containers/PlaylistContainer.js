@@ -10,7 +10,6 @@ class PlaylistContainer extends Component {
     createPlaylist(){
         const user_id = this.props.login.userData.spotify_id
         const {name, description, publicPlaylist, collaborative} = this.props.playlist
-        debugger
         fetch(`https://api.spotify.com/v1/users/${user_id}/playlists`, {
             method: 'POST',
             headers: {
@@ -25,15 +24,15 @@ class PlaylistContainer extends Component {
             }) 
         }) 
         .then(r => r.json())
-        // .then(data=> console.log(data))
-        //     .then(data => this.props.dispatch({ 
+        .then(data=> console.log(data))
+            .then(data => this.props.dispatch({ 
                 
-        //     type: "MAKE_PLAYLIST",
-        //     name: data.name, 
-        //     public: data.publicPlaylist, 
-        //     collaborative: data.collaborative, 
-        //     description: data.description 
-        // }))
+            type: "MAKE_PLAYLIST",
+            name: name, 
+            public: publicPlaylist, 
+            collaborative: collaborative, 
+            description: description 
+        }))
     }
     
     handleNameInput = (e) => {
@@ -66,7 +65,6 @@ class PlaylistContainer extends Component {
     return (
         <div>
             <Button onClick={this.show('blurring')}>Create New Playlist</Button>
-
             <Modal dimmer={dimmer} open={open} onClose={this.close}>
                 <Modal.Header>Create a Playlist</Modal.Header>
                 <Modal.Content image>

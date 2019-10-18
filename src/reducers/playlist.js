@@ -21,13 +21,13 @@ export default (state = initialState, action) => {
             return {...state, name: action.name}
         }
         case "GET_PLAYLIST_DESC": {
-            return {...state, description: action.name}
+            return {...state, description: action.description}
         }
         case "GET_PRIVACY": {
-            return {...state, description: action.public}
+            return {...state, publicPlaylist: action.public}
         }
         case "GET_COLLAB": {
-            return {...state, description: action.collaborative}
+            return {...state, collaborative: action.collaborative}
         }
         case "MAKE_PLAYLIST": {
             return { ...state, name: action.name, 
