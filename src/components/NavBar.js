@@ -7,19 +7,19 @@ export default function NavBar() {
         <div>
 
             <div className="ui secondary pointing menu">
-                <a className="active item">
+                <button className="active item">
                     Home
-                </a>
-                <a className="item">
+                </button>>
+                <button className="item">
                     Playlists
-                </a>
-                <a className="item">
+                </button>>
+                <button className="item">
                     Friends
-                </a>
+                </button>>
                 <div className="right menu">
-                    <a className="ui item">
+                    <button className="ui item">
                     Logout
-                    </a>
+                    </button>>
                 </div>
             </div>
             <div className="ui segment">

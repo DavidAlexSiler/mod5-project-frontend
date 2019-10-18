@@ -8,10 +8,10 @@ const UserCard = (props) => {
     return (
         <div className="ui card">
             <div className="image">
-                <img src={props.userData.image} alt={'SHOULDA PUT A PICTURE'} />
+                <img src={props.userData.image} alt={'your face here'} />
             </div>
                 <div className="content">
-                    <a className="header">{props.userData.name}</a>
+                    <h2>{props.userData.name}</h2>
                     <div className="meta">
                         <span className="location">{props.userData.country}</span>
                     </div>
@@ -20,10 +20,10 @@ const UserCard = (props) => {
                     </div>
                 </div>
                 <div className="extra content">
-                    <a>
+                    <p>
                         <i className="user icon"></i>
                         22 Friends
-                    </a>
+                    </p>
                 </div>
             </div>
     )

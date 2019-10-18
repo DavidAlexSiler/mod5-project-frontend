@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
 import 'semantic-ui-css/semantic.min.css';
-import NavBar from './NavBar'
-import UserContainer from '../containers/UserContainer'
+import NavBar from './NavBar';
+import UserContainer from '../containers/UserContainer';
 import SongSearch from './SongSearch';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import PlaylistContainer from '../containers/PlaylistContainer'
 
 
 const ListeningRoom = (props) => {
@@ -12,6 +13,7 @@ const ListeningRoom = (props) => {
             <NavBar />
             <UserContainer />
             <SongSearch />
+            <PlaylistContainer />
         </div>
     )
 }
