@@ -4,12 +4,24 @@ import { connect } from 'react-redux'
 
 class PlaylistContainer extends Component {
 
-    show = (dimmer) => () => this.props.dispatch({ type: "GET_DIM", open: true })
-    close = () => this.props.dispatch({ type: "GET_UNDIM", open: false })
+    state = {
+        // modal
+        open: false,
+        // playlist
+        name: '',
+        description: '',
+        publicPlaylist: false,
+        collaborative: false,
+        id: ''
+    }
+    show = (dimmer) => () => this.setState({ open: true })
+    close = () => {
+        this.setState({ open: false })
+    }
 
     createPlaylist(){
         const user_id = this.props.login.userData.spotify_id
-        const {name, description, publicPlaylist, collaborative} = this.props.playlist
+        const {name, description, publicPlaylist, collaborative} = this.state
         fetch(`https://api.spotify.com/v1/users/${user_id}/playlists`, {
             method: 'POST',
             headers: {
@@ -24,35 +36,40 @@ class PlaylistContainer extends Component {
             }) 
         }) 
         .then(r => r.json())
-        .then(data=> console.log(data))
-            .then(data => this.props.dispatch({ 
-                
-            type: "MAKE_PLAYLIST",
-            name: name, 
-            public: publicPlaylist, 
-            collaborative: collaborative, 
-            description: description 
+        // .then(data=> console.log(data))
+            .then(data => this.props.dispatch({
+            type: "GET_PLAYLIST", playlists: [...this.props.playlist.playlists, 
+                {
+                    type: "MAKE_PLAYLIST",
+                    name: name,
+                    public: publicPlaylist,
+                    collaborative: collaborative,
+                    description: description,
+                    id: data.id
+                }]  
         }))
+        .then(this.close)
+        .then(window.alert("Playlist created, go search for songs (redirect to come)"))
     }
     
     handleNameInput = (e) => {
-        this.props.dispatch({type: "GET_PLAYLIST_NAME", name: e.target.value})
+        this.setState({name: e.target.value})
     }
     
     handleDescInput = (e) => {
-        this.props.dispatch({type: "GET_PLAYLIST_DESC", description: e.target.value})
+        this.setState({description: e.target.value})
     }
 
     handlePrivates = (e) => {
         e.target.className === "ui positive button active" ? 
-        this.props.dispatch({type: "GET_PRIVACY", public: true}):
-        this.props.dispatch({type: "GET_PRIVACY", public: false})
+        this.setState({public: true}):
+        this.setState({public: false})
     }
 
     handleCollab = (e) => {
         e.target.className === "ui positive button active" ? 
-        this.props.dispatch({type: "GET_COLLAB", collaborative: true}):
-        this.props.dispatch({type: "GET_COLLAB", collaborative: false})
+        this.setState({collaborative: true}):
+        this.setState({collaborative: false})
     }
 
 
@@ -61,7 +78,7 @@ class PlaylistContainer extends Component {
     }
 
     render() {
-    const { open, dimmer } = this.props.playlist  
+    const { open, dimmer } = this.state  
     return (
         <div>
             <Button onClick={this.show('blurring')}>Create New Playlist</Button>

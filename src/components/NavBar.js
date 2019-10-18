@@ -1,29 +1,29 @@
 import React from 'react'
 import 'semantic-ui-css/semantic.min.css';
+import { Link } from 'react-router-dom'
 
 
 export default function NavBar() {
     return (
         <div>
-
             <div className="ui secondary pointing menu">
-                <button className="active item">
-                    Home
-                </button>>
-                <button className="item">
+                <Link to='/' className="active item">
+                    Me
+                </Link>
+                <Link to='/playlists' className="item">
                     Playlists
-                </button>>
-                <button className="item">
+                </Link>
+                <Link to='/songs' className="item">
+                    Songs
+                </Link>
+                <Link to='/friends' className="item">
                     Friends
-                </button>>
+                </Link>
                 <div className="right menu">
                     <button className="ui item">
                     Logout
-                    </button>>
+                    </button>
                 </div>
-            </div>
-            <div className="ui segment">
-                <p></p>
             </div>
         </div>
     )

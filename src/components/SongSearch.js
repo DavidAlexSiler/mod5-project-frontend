@@ -1,19 +1,22 @@
 import React, { Component } from 'react'
 import 'semantic-ui-css/semantic.min.css';
-// import SearchResults from '../containers/SearchResults'
 import { connect } from 'react-redux'
 import { Search } from 'semantic-ui-react'
 import _ from 'lodash'
+import SongContainer from '../containers/SongContainer'
 
 const searchAPI = 'https://api.spotify.com/v1/search?q='
 
 class SongSearch extends Component {
 
     state = {
-        formResult: [],
         searchResults: [],
-        searchInput: ''
+        searchInput: '',
+        isLoading: false,
+        open: false
     }
+
+    //SEARCHING
 
     dataMap = (data) => {
             let actualData = data.map((r, key) => { 
@@ -22,7 +25,9 @@ class SongSearch extends Component {
                     title: r.name,
                     description: r.artists[0].name,
                     image: r.album.images[2].url,
-                    id: r.id,
+                    price: '+',
+                    uri: r.uri,
+                    id: r.id
                 }
             }) 
         this.setState({ searchResults: actualData })
@@ -35,7 +40,7 @@ class SongSearch extends Component {
     }
     
     searchSongs = () => {
-        if(this.state.searchInput < 1){
+        if(this.state.searchInput === ''){
             return null
         }
         let queryString = this.state.searchInput.replace(' ', "%20")
@@ -52,32 +57,43 @@ class SongSearch extends Component {
             .then(data => this.dataMap(data.tracks.items) )
     }
 
-    handleResultSelect = (e) => {console.log(e.target)}
-
     handleSearchChange = (e) => {
-        this.props.dispatch({ type: "IS_LOADING", isLoading: true})
-        this.setState({searchInput: e.target.value})
-        
+        this.setState({searchInput: e.target.value, isLoading: true}) 
         setTimeout(() => {
-            if (this.state.searchInput.length < 1) return this.props.dispatch({ type: "RESET_STATE", state: []})
-            this.props.dispatch({ 
-                type: "SHOW_RESULTS", 
+            if (this.state.searchInput.length < 1) return this.setState({
+                searchResults: [],
+                searchInput: '',
+                isLoading: false })
+            this.setState({ 
                 isLoading: false, 
-                results: this.state.searchResults})
+                searchResults: this.state.searchResults})
         }, 300)
     }
 
+    // SELECTING
+
+    handleResultSelect = (e, { result }, ) => {
+        this.props.dispatch({ type: "SELECT_SONG", selectedSong: [...this.props.songsearch.selectedSong, result] })
+    }
+
     render() {
+        const { searchResults, searchInput } = this.state
         return (
-            <Search
-                onResultSelect={this.handleResultSelect}
-                onSearchChange={_.debounce((e) => this.handleSearchChange(e), 500, {
-                    leading: true,
-                })}
-                results={this.state.searchResults}
-                input={this.state.searchInput}
-                {...this.props}
-            />
+            <div>
+                <Search
+                    onResultSelect={this.handleResultSelect}
+                    onSearchChange={_.debounce((e) => this.handleSearchChange(e), 500, {
+                        leading: true,
+                    })}
+                    results={searchResults}
+                    input={searchInput}
+                    {...this.props}
+                />
+                {this.props.songsearch.selectedSong.length >= 1 ? 
+                    <SongContainer />:
+                    null
+                }
+            </div>
         )
     }
 }

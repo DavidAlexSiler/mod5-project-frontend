@@ -7,7 +7,7 @@ import { getUser } from '../services/backend'
 class Login extends Component {
 
     componentDidMount = () => {
-        getUser().then(data => { this.props.dispatch({ type: "GET_USER", data: data }) })
+        getUser().then(data => { this.props.dispatch({ type: "GET_USER", data: data})})
     }
     
     renderFrontPage = () => {
@@ -18,8 +18,7 @@ class Login extends Component {
         <Button as="a" href="http://localhost:3000/api/v1/login" >
         Log in through Spotify</Button>
         </div>
-    }
-
+    } 
     render() {
         return (
             <div>
@@ -28,6 +27,7 @@ class Login extends Component {
         )
     }
 }
+
 let mapStateToProps = (state) => {
     return state.login
 }

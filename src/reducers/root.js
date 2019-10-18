@@ -1,10 +1,10 @@
 import loginReducer from './login';
-import songSearchReducer from './songSearch';
+import songsearchReducer from './songsearch';
 import playlistReducer from './playlist'
 import { combineReducers } from 'redux';
 
 export default combineReducers({
     login: loginReducer,
-    songSearch: songSearchReducer,
+    songsearch: songsearchReducer,
     playlist: playlistReducer
 });
