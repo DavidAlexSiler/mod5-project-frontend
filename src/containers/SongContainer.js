@@ -4,12 +4,9 @@ import { connect } from 'react-redux'
 
 
 const SongContainer = (props) => {
-    console.log(props)
-    debugger
     return (
         <div>
             {props.selectedSong.map(song => <SelectedSong {...song} />)}
-            <h1>hg</h1>
         </div>
     )
 }

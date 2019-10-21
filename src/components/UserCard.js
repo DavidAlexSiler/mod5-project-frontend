@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 
 
 const UserCard = (props) => {
-    console.log(props.user)
     return (
         <div className="ui card">
             <div className="image">

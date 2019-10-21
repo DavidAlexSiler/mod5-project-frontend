@@ -2,42 +2,103 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Button, Card, Image } from 'semantic-ui-react'
 
-const SelectedSong = (props) => {
-    console.log(props)
-    const {description, id, image,  title,  uri} = props
-    return (
-        <Card.Group>
-            <Card>
-                <Card.Content>
-                    <Image
-                        floated='right'
-                        size='mini'
-                        src={image}
-                    />
-                    <Card.Header>{title}</Card.Header>
-                    <Card.Meta>{description}</Card.Meta>
-                    <Card.Description>
-                        add?
-                    </Card.Description>
-                </Card.Content>
-                <Card.Content extra>
-                    <div className='ui two buttons'>
-                        <Button basic color='green'>
-                            Approve
-                        </Button>
-                        <Button basic color='red'>
-                            Decline
-                        </Button>
-                    </div>
-                </Card.Content>
-            </Card>
-            
-        </Card.Group>
-    )
-}
+class SelectedSong extends React.Component {
+
+    state = {
+        value: ''
+    }
+
+    componentWillUpdate = () => {
+        this.getAllUsersPlaylists()
+    }
+
+    getAllUsersPlaylists = () => {
+        fetch('https://api.spotify.com/v1/me/playlists', {
+            method: 'GET',
+            headers: {
+                "Authorization": 'Bearer ' + this.props.login.userData.access_token,
+                "Content-Type": 'application/json',
+            }
+        })
+            .then(r => r.json())
+            .then(data => this.props.dispatch({ type: "GET_PLAYLISTS", playlists: data }))
+    }
+
+    handlePlaylistSelect = (e) => {
+        this.setState({
+            value:  e.target.value
+        })
+
+    }
+
+    handleAddToPlaylist = (e)  => {
+        console.log(this.props)
+        fetch(`https://api.spotify.com/v1/playlists/${this.state.value}/tracks`, {
+            method: 'POST',
+            headers: {
+                "Authorization": 'Bearer ' + this.props.login.userData.access_token,
+                "Content-Type": 'application/json',
+            }, 
+            body: JSON.stringify({ uris: [`${this.props.uri}`] })
+        })
+        .then(r => r.json())
+        .then(data => console.log(data))
+        .then(window.alert(`added to ${this.props.name}`))
+    }
+
+    handleCancel = (e) => {
+        let updatedSongArray = this.props.songsearch.selectedSong.filter(song => song.id !== e.target.id)
+        this.props.dispatch({type: "REMOVE_SONG", selectedSong: updatedSongArray})
+    }
+
+    render(){
+        const {description, id, image, title, uri} = this.props
+        return (
+            <Card.Group>
+                <Card>
+                    <Card.Content>
+                        <Image
+                            floated='right'
+                            size='mini'
+                            src={image}
+                        />
+                        <Card.Header>{title}</Card.Header>
+                        <Card.Meta>{description}</Card.Meta>
+                        <Card.Description>
+                            Add to playlist.
+                        </Card.Description>
+                        <select value={this.state.value} onChange={this.handlePlaylistSelect}>
+                            <option value="default">Choose a Playlist</option>
+                            <option value="new">Create a new Playlist</option>
+                            {this.props.playlist.playlists.items.map(p => 
+                                <option value={p.id} id={p.id} uri={p.uri}>
+                                    {p.name.slice(0, 20).length > 19 ? p.name.slice(0, 20).concat('...') : 
+                                    p.name.slice(0, 20)}</option>)}
+                        </select>
+                    </Card.Content>
+                    <Card.Content extra>
+                        <div className='ui two buttons'>
+                            <Button id={id} uri={uri}
+                            onClick={(e, id) => this.handleAddToPlaylist(e, id)} 
+                            basic color='green'>
+                                Add
+                            </Button>
+                            <Button id={id} uri={uri} 
+                            onClick={(e) => this.handleCancel(e)} 
+                            basic color='red'>
+                                Clear
+                            </Button>
+                        </div>
+                    </Card.Content>
+                </Card>
+                
+            </Card.Group>
+        )
+    }
+    }
 
 let mapPropsToState = (state) => {
-    return state.songsearch
+    return state
 }
 
 export default connect(mapPropsToState)(SelectedSong)

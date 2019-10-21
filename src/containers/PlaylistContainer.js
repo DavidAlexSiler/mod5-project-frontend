@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import { Button, Modal, Image, Header } from 'semantic-ui-react'
 import { connect } from 'react-redux'
+import PlaylistMapper from './PlaylistMapper'
+
 
 class PlaylistContainer extends Component {
 
@@ -12,8 +14,38 @@ class PlaylistContainer extends Component {
         description: '',
         publicPlaylist: false,
         collaborative: false,
-        id: ''
+        id: '',
+        initialPlaylists: []
     }
+    
+    componentDidMount = () => {
+        this.getAllUsersPlaylists()
+    }
+    
+    getAllUsersPlaylists = () => {
+        fetch('https://api.spotify.com/v1/me/playlists', {
+            method: 'GET',
+            headers: {
+                "Authorization": 'Bearer ' + this.props.login.userData.access_token,
+                "Content-Type": 'application/json',
+            }
+        })
+        .then(r => r.json())
+        .then(data => this.props.dispatch({type:  "GET_PLAYLISTS", playlists: data}))
+    }
+
+    // componentDidUpdate(prevProps){
+    //     if(prevProps.playlist !== this.props.playlist){
+    //         this.getAllUsersPlaylists()
+    //     }
+    // }
+
+    setInitialPlaylists = () => {
+        this.setState({
+            initialPlaylists: this.props.playlist.playlists.items
+        })
+    }
+
     show = (dimmer) => () => this.setState({ open: true })
     close = () => {
         this.setState({ open: false })
@@ -21,7 +53,7 @@ class PlaylistContainer extends Component {
 
     createPlaylist(){
         const user_id = this.props.login.userData.spotify_id
-        const {name, description, publicPlaylist, collaborative} = this.state
+        const {name, description, publicPlaylist, collaborative, images} = this.state
         fetch(`https://api.spotify.com/v1/users/${user_id}/playlists`, {
             method: 'POST',
             headers: {
@@ -36,22 +68,13 @@ class PlaylistContainer extends Component {
             }) 
         }) 
         .then(r => r.json())
-        // .then(data=> console.log(data))
-            .then(data => this.props.dispatch({
-            type: "GET_PLAYLIST", playlists: [...this.props.playlist.playlists, 
-                {
-                    type: "MAKE_PLAYLIST",
-                    name: name,
-                    public: publicPlaylist,
-                    collaborative: collaborative,
-                    description: description,
-                    id: data.id
-                }]  
-        }))
+        .then(data => this.getAllUsersPlaylists(data))
         .then(this.close)
         .then(window.alert("Playlist created, go search for songs (redirect to come)"))
+        .then(this.setInitialPlaylists())
     }
     
+
     handleNameInput = (e) => {
         this.setState({name: e.target.value})
     }
@@ -72,6 +95,11 @@ class PlaylistContainer extends Component {
         this.setState({collaborative: false})
     }
 
+    handleClick = (e) => {
+        this.setState({
+            initialPlaylists: this.props.playlist.playlists
+        })
+    }
 
     handleSubmit = () => {
         this.createPlaylist()
@@ -126,10 +154,12 @@ class PlaylistContainer extends Component {
                         icon='checkmark'
                         labelPosition='right'
                         content="Let's look for Songs"
-                        onClick={(e) => this.handleSubmit(e)}
-                    />
+                        onClick={(e) => this.handleSubmit(e)}>
+                    </Button>
                 </Modal.Actions>
             </Modal>
+            <Button onClick={(e) => this.handleClick(e)}>My Playlists</Button>
+            <PlaylistMapper initialPlaylists={this.state.initialPlaylists}/>
         </div>
     )
 }

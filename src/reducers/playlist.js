@@ -4,7 +4,10 @@ let initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case "GET_PLAYLIST": {
+        case "CREATE_PLAYLIST": {
+            return {playlists: action.playlists}
+        }
+        case "GET_PLAYLISTS": {
             return {playlists: action.playlists}
         }
         default: {
