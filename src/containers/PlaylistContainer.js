@@ -34,12 +34,6 @@ class PlaylistContainer extends Component {
         .then(data => this.props.dispatch({type:  "GET_PLAYLISTS", playlists: data}))
     }
 
-    // componentDidUpdate(prevProps){
-    //     if(prevProps.playlist !== this.props.playlist){
-    //         this.getAllUsersPlaylists()
-    //     }
-    // }
-
     setInitialPlaylists = () => {
         this.setState({
             initialPlaylists: this.props.playlist.playlists.items
@@ -53,7 +47,7 @@ class PlaylistContainer extends Component {
 
     createPlaylist(){
         const user_id = this.props.login.userData.spotify_id
-        const {name, description, publicPlaylist, collaborative, images} = this.state
+        const {name, description, publicPlaylist, collaborative} = this.state
         fetch(`https://api.spotify.com/v1/users/${user_id}/playlists`, {
             method: 'POST',
             headers: {
@@ -95,17 +89,18 @@ class PlaylistContainer extends Component {
         this.setState({collaborative: false})
     }
 
-    handleClick = (e) => {
-        this.setState({
-            initialPlaylists: this.props.playlist.playlists
-        })
-    }
+    // handleClick = (e) => {
+    //     this.setState({
+    //         initialPlaylists: this.props.playlist.playlists
+    //     })
+    // }
 
     handleSubmit = () => {
         this.createPlaylist()
     }
 
     render() {
+        console.log(this.props, 'in container')
     const { open, dimmer } = this.state  
     return (
         <div>
@@ -158,7 +153,7 @@ class PlaylistContainer extends Component {
                     </Button>
                 </Modal.Actions>
             </Modal>
-            <Button onClick={(e) => this.handleClick(e)}>My Playlists</Button>
+            <Button onClick={(e) => this.setInitialPlaylists(e)}>My Playlists</Button>
             <PlaylistMapper initialPlaylists={this.state.initialPlaylists}/>
         </div>
     )

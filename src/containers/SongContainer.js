@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 const SongContainer = (props) => {
     return (
         <div>
-            {props.selectedSong.map(song => <SelectedSong {...song} />)}
+            {props.selectedSong.map(song => <SelectedSong key={props.id} {...song} />)}
         </div>
     )
 }

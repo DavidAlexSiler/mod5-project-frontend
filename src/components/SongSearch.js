@@ -64,9 +64,10 @@ class SongSearch extends Component {
                 searchResults: [],
                 searchInput: '',
                 isLoading: false })
-            this.setState({ 
-                isLoading: false, 
-                searchResults: this.state.searchResults})
+            else
+                this.setState({ 
+                    isLoading: false, 
+                    searchResults: this.state.searchResults})
         }, 300)
     }
 
@@ -87,7 +88,7 @@ class SongSearch extends Component {
                     })}
                     results={searchResults}
                     input={searchInput}
-                    {...this.props}
+                    props={this.props}
                 />
                 {this.props.songsearch.selectedSong.length >= 1 ? 
                     <SongContainer />:

@@ -3,10 +3,10 @@ import PlaylistItem from '../components/PlaylistItem'
 
 
 export default function PlaylistMapper(props) {
-    console.log(props)
+    console.log(props, 'inmap')
     return (
         <div>
-            {props.initialPlaylists.items ? props.initialPlaylists.items.map(playlist => <PlaylistItem key={playlist.id} {...playlist} />): null}
+            {props.initialPlaylists.length > 0 ? props.initialPlaylists.map(playlist => <PlaylistItem key={playlist.id} {...playlist} />): null}
         </div>
     )
 }

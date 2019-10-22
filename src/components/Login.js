@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button } from 'semantic-ui-react';
 import ListeningRoom from './ListeningRoom';
 import { connect } from 'react-redux';
-import { getUser } from '../services/backend'
+import { getUser } from '../services/backend';
 
 class Login extends Component {
 

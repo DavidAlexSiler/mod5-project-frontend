@@ -8,7 +8,7 @@ class SelectedSong extends React.Component {
         value: ''
     }
 
-    componentWillUpdate = () => {
+    componentDidMount = () => {
         this.getAllUsersPlaylists()
     }
 
@@ -25,14 +25,21 @@ class SelectedSong extends React.Component {
     }
 
     handlePlaylistSelect = (e) => {
-        this.setState({
-            value:  e.target.value
-        })
+        debugger
+        if(e.target.value === 'default'){
+            return null
+        }else if(e.target.value === 'new'){
+            console.log('new')
+        }else{
+            this.setState({
+                value:  e.target.value
+            })
+        }
 
     }
 
     handleAddToPlaylist = (e)  => {
-        console.log(this.props)
+        console.log(this.props, 'handle add to pl')
         fetch(`https://api.spotify.com/v1/playlists/${this.state.value}/tracks`, {
             method: 'POST',
             headers: {
@@ -43,7 +50,7 @@ class SelectedSong extends React.Component {
         })
         .then(r => r.json())
         .then(data => console.log(data))
-        .then(window.alert(`added to ${this.props.name}`))
+        .then(window.alert(`added ${this.props.title} to playlist!`))
     }
 
     handleCancel = (e) => {

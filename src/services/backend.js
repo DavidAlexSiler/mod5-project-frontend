@@ -12,9 +12,7 @@ export async function getUser(){
     return await r.json();
 }
 
-// export function getSong(){
-//     fetch()
-// }
+
 
 
 
