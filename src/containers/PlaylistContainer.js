@@ -15,30 +15,15 @@ class PlaylistContainer extends Component {
         publicPlaylist: false,
         collaborative: false,
         id: '',
-        initialPlaylists: []
-    }
-    
-    componentDidMount = () => {
-        this.getAllUsersPlaylists()
-    }
-    
-    getAllUsersPlaylists = () => {
-        fetch('https://api.spotify.com/v1/me/playlists', {
-            method: 'GET',
-            headers: {
-                "Authorization": 'Bearer ' + this.props.login.userData.access_token,
-                "Content-Type": 'application/json',
-            }
-        })
-        .then(r => r.json())
-        .then(data => this.props.dispatch({type:  "GET_PLAYLISTS", playlists: data}))
+        initialPlaylists: [],
+        clicked: false
     }
 
-    setInitialPlaylists = () => {
-        this.setState({
-            initialPlaylists: this.props.playlist.playlists.items
-        })
-    }
+    // setInitialPlaylists = () => {
+    //     this.setState({
+    //         initialPlaylists: this.props.playlist.playlists.items
+    //     })
+    // }
 
     show = (dimmer) => () => this.setState({ open: true })
     close = () => {
@@ -89,11 +74,11 @@ class PlaylistContainer extends Component {
         this.setState({collaborative: false})
     }
 
-    // handleClick = (e) => {
-    //     this.setState({
-    //         initialPlaylists: this.props.playlist.playlists
-    //     })
-    // }
+    handleClick = (e) => {
+        this.setState({
+            clicked: !this.state.clicked
+        })
+    }
 
     handleSubmit = () => {
         this.createPlaylist()
@@ -153,8 +138,8 @@ class PlaylistContainer extends Component {
                     </Button>
                 </Modal.Actions>
             </Modal>
-            <Button onClick={(e) => this.setInitialPlaylists(e)}>My Playlists</Button>
-            <PlaylistMapper initialPlaylists={this.state.initialPlaylists}/>
+            <Button onClick={(e) => this.handleClick(e)}>My Playlists</Button>
+            {this.state.clicked ? <PlaylistMapper /> : null}
         </div>
     )
 }

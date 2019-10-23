@@ -1,16 +1,18 @@
 import React from 'react'
 import { Icon, Item } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-// import PlaylistDetailsContainer from '../containers/PlaylistDetailsContainer'
+import PlaylistDetailsContainer from '../containers/PlaylistDetailsContainer'
 
 
 class PlaylistItem extends React.Component{
 
     state = {
-        playlistDetails: []
+        playlistDetails: [],
+        clicked: false
     }
 
     handleClickPlaylist = (e) =>  {
+        this.setState({clicked: !this.state.clicked})
         let playlist_id = this.props.id
         fetch(`https://api.spotify.com/v1/playlists/${playlist_id}/tracks`, {
             method: 'GET',
@@ -27,9 +29,7 @@ class PlaylistItem extends React.Component{
     }
 
     render(){
-        (console.log(this.props, 'plitem'))
         const {name, images, tracks, collaborative} = this.props
-    
         return (
             <div>
                 <Item>
@@ -52,7 +52,8 @@ class PlaylistItem extends React.Component{
                         </Item.Extra>}
                     </Item.Content>
                 </Item>
-                {/* <PlaylistDetailsContainer playlistDetails={this.state.playlistDetails}/> */}
+                {this.state.clicked && this.state.playlistDetails.items ? <PlaylistDetailsContainer playlistDetails={this.state.playlistDetails} />:
+                null}
             </div>
         )
 

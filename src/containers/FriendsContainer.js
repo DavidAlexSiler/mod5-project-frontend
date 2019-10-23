@@ -20,7 +20,8 @@ class FriendsContainer extends React.Component{
                 title: null, 
                 description: null, 
                 image: null
-            }
+            },
+            selected: {}
         }
 
 
@@ -39,7 +40,8 @@ class FriendsContainer extends React.Component{
                         ...this.state.user,
                         title: user.name,
                         description: 'spotify user',
-                        image: user.image
+                        image: user.image,
+                        id: user.id
                     }
                 })
             // })
@@ -67,7 +69,7 @@ class FriendsContainer extends React.Component{
             })
         }
         
-        handleResultSelect = (e, { result }) => this.setState({ value: result.title })
+        handleResultSelect = (e, { result }) => this.setState({ selected: result, value: result.title })
         
         handleSearchChange = (e, { value }) => {
             this.setState({ isLoading: true, value })
@@ -88,10 +90,9 @@ class FriendsContainer extends React.Component{
         
         render(){
             // const { isLoading, value, results } = this.state
-            console.log(this.state.users)
         return (
             <div>
-                <Search
+                <Search 
                     loading={this.state.isLoading}
                     onResultSelect={this.handleResultSelect}
                     onSearchChange={_.debounce(this.handleSearchChange, 500, {
@@ -99,6 +100,7 @@ class FriendsContainer extends React.Component{
                     })}
                     results={this.state.results}
                     value={this.state.value}
+                    
                     {...this.props}
                 />
             </div>

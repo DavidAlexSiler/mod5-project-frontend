@@ -3,7 +3,6 @@ import { Button } from 'semantic-ui-react';
 import ListeningRoom from './ListeningRoom';
 import { connect } from 'react-redux';
 import { getUser } from '../services/backend';
-
 class Login extends Component {
 
     componentDidMount = () => {
@@ -15,13 +14,13 @@ class Login extends Component {
         <ListeningRoom user={this.userData}/> :
         <div>
         <img src="https://icdn9.digitaltrends.com/image/digitaltrends/european-audio-teams-b-sharp-turntable-review-4214-1920x1280.jpg" alt="record player" style={{ width: 1000 }} />
-        <Button as="a" href="http://localhost:3000/api/v1/login" >
+        <Button className='button' as="a" href="http://localhost:3000/api/v1/login" >
         Log in through Spotify</Button>
         </div>
     } 
     render() {
         return (
-            <div>
+            <div className='front-page' >
                 {this.renderFrontPage()} 
             </div>
         )

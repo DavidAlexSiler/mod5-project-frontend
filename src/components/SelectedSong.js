@@ -25,7 +25,6 @@ class SelectedSong extends React.Component {
     }
 
     handlePlaylistSelect = (e) => {
-        debugger
         if(e.target.value === 'default'){
             return null
         }else if(e.target.value === 'new'){

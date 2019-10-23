@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import PlaylistContainer from '../containers/PlaylistContainer'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import FriendsContainer from '../containers/FriendsContainer'
+import PlaylistMapper from '../containers/PlaylistMapper';
 
 
 
@@ -15,6 +16,7 @@ const ListeningRoom = (props) => {
         <div>
             <NavBar />
             <UserContainer />
+            {/* <PlaylistMapper /> */}
             {/* <Route exact path='/' component={ListeningRoom} /> */}
             <Route path='/songs' component={SongSearch} />
             <Route path='/playlists' component={PlaylistContainer} />

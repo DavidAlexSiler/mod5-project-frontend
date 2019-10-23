@@ -9,7 +9,7 @@ class RecentInput extends  React.Component{
 
     // componentDidUpdate = (prevProps) => {
     //     if(prevProps !== this.props){
-    //         renderCard(this.props)
+            
     //     }
     // }   
 
@@ -18,8 +18,8 @@ class RecentInput extends  React.Component{
 
 
     render(){
+        console.log(this.props)
         return (
-
             <Card>
                 <Card.Content>
                     <Card.Header>recentInput</Card.Header>
@@ -27,13 +27,16 @@ class RecentInput extends  React.Component{
                 <Card.Content>
                     <Feed>
                         <Feed.Event>
-                            {/* {this.props} */}
-                            {/* {this.props.recentInput.album.images[2].url} */}
+                            {this.props.recentInput.album ? 
+                            <Feed.Label image={this.props.recentInput.album.images[2].url} />:
+                            null}
                             <Feed.Content>
-                                <Feed.Date content='boop' />
-                                <Feed.Summary>
-                                    what the fuck
-                                </Feed.Summary>
+                                <Feed.Date content='today' />
+                                {this.props.recentInput.album ?
+                                    <Feed.Summary>
+                                        You enjoyed {this.props.recentInput.name} by {this.props.recentInput.artists[0].name}.
+                                    </Feed.Summary> :
+                                    null}
                             </Feed.Content>
                         </Feed.Event>
                     </Feed>
