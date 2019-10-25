@@ -1,7 +1,8 @@
 let initialState = {
     isLoggedIn: false,
     userData: {},
-    recentInput: {}
+    recentInput: {},
+    userTopArtist: {}
 }
 
 export default(state = initialState, action) =>{
@@ -11,6 +12,9 @@ export default(state = initialState, action) =>{
         }
         case "GET_RECENT_INPUT": {
             return {...state, recentInput: action.recentInput}
+        }
+        case "GET_USER_TOP_ARTIST": {
+            return {...state, userTopArtist: action.userTopArtist}
         }
         default: {
             return state

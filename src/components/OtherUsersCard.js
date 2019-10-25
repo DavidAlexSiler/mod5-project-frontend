@@ -1,26 +1,32 @@
 import React from 'react'
 import { Card, Image, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-
+import FriendsPlaylistMapper from '../containers/FriendsPlaylistMapper'
 class OtherUsersCard extends React.Component {
+
+    state = {
+        show: this.props.show,
+        showFriends: false
+    }
 
     
     handleClick = (e, id) => {
         this.makeFriends(id)
     }
-    makeFriends = (id) => {
+    makeFriends = (e, id) => {
         fetch('http://localhost:3000/api/v1/follows', {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'content-type': 'application/json'
             },
             body: JSON.stringify({
-                id: id,
+                // id: this.props.login.userData.id,
                 user_id: this.props.login.userData.id,
                 followee_id: id
             })
         })
-        .then(r => console.log(r))
+        .then(r => r.json())
+        .then(window.alert('believe me, it worked.'))
         // .then(data => console.log(data))
     }
 
@@ -31,41 +37,67 @@ class OtherUsersCard extends React.Component {
                 'content-type': 'application/json'
             }
         })
-        .then(r => console.log(r))
+        .then(r => r.json())        
+    }
+
+    componentDidMount = (e, id) => {
+        
+        fetch(`https://api.spotify.com/v1/users/${this.props.selected.spotify_id}/playlists`, {
+            method: 'GET',
+            headers: {
+                "Accept": 'application/json',
+                "Content-Type": 'application/json',
+                "Authorization": 'Bearer ' + this.props.login.userData.access_token,
+            }
+        })
+        .then(r => r.json())
+        .then(data => this.props.dispatch({ type: "GET_FRIENDS_PLAYLISTS", friendsPlaylists: data }))
+        // .then(this.showFriendsPlaylists())
+    }
+
+    handleCancel = () => {
+        this.setState({
+            show: !this.state.show,
+            showFriends: !this.state.showFriends
+        })
     }
 
     
     render(){
         return (
-            <div>
-                <Card onClick={(e) => this.handleClick(e, this.props.spotify_id, this.props.id)}>
+            <div className='other users card'>
+                {this.state.show ===true ? 
+                <Card >
                     <Card.Content>
-                        {this.props.image === null ? <Image
+                        {this.props.selected.image === null ? <Image
                             floated='right'
-                            size='mini'
+                            size='large'
                             src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
                         /> : <Image
                                 floated='right'
-                                size='mini'
-                                src={this.props.image}
+                                size='large'
+                                src={this.props.selected.image}
                             />}
-                        <Card.Header>{this.props.name}</Card.Header>
+                        <Card.Header>{this.props.selected.title}</Card.Header>
                         <Card.Meta>Spotify User</Card.Meta>
                         <Card.Description>
-                            Do you want to add {this.props.name} to your friends?
+                            Do you want to add {this.props.selected.title} to your friends?
                         </Card.Description>
                     </Card.Content>
                     <Card.Content extra>
                         <div className='ui two buttons'>
-                            <Button onClick={(e) => this.handleClick(e, this.props.spotify_id, this.props.id)} basic color='green'>
+                            <Button onClick={(e) => this.makeFriends(e, this.props.selected.id)} basic color='green'>
                                 Yes
                             </Button>
-                            <Button onClick={(e) => this.handleClick(e, this.props.spotify_id, this.props.id)} basic color='red'>
-                                No
+                                <Button name='cancel' onClick={(e) => this.handleCancel(e, this.props.selected.spotify_id)} basic color='blue'>
+                                {this.props.selected.title}'s music.
                             </Button>
                         </div>
                     </Card.Content>
-                </Card>
+                </Card>:
+                null
+                }
+                {this.state.showFriends ? <FriendsPlaylistMapper className='friends playlist mapper' />: null}
             </div>
         )
     }

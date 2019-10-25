@@ -80,8 +80,10 @@ class SongSearch extends Component {
     render() {
         const { searchResults, searchInput } = this.state
         return (
-            <div>
+            <div className='song search container'>
+                <h1>Search For Songs</h1>
                 <Search
+                    className='song search'
                     onResultSelect={this.handleResultSelect}
                     onSearchChange={_.debounce((e) => this.handleSearchChange(e), 500, {
                         leading: true,

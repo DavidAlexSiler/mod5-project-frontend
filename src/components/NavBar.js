@@ -1,12 +1,14 @@
 import React from 'react'
 import 'semantic-ui-css/semantic.min.css';
 import { Link } from 'react-router-dom'
+import NewPlaylistModal from './NewPlaylistModal';
 
 
 class NavBar extends React.Component{
     
     state = {
-        activeItem: {}
+        activeItem: {},
+        createClick: false
     }
 
     componentDidUpdate(prevProps, prevState){
@@ -17,9 +19,14 @@ class NavBar extends React.Component{
     }
 
     handleClick = (e) => {
-        console.log(e.target)
         this.setState({
             activeItem: e.target
+        })
+    }
+
+    handleCreateNew = () => {
+        this.setState({
+            createClick: !this.state.createClick
         })
     }
 
@@ -39,13 +46,17 @@ class NavBar extends React.Component{
                     <Link onClick={(e) => this.handleClick(e)} to='/friends' className="item">
                         Friends
                     </Link>
+                    <a onClick={(e) => this.handleCreateNew(e)} className="item">
+                        New Playlist
+                    </a>
+
                     <div className="right menu">
                         <Link onClick={(e) => this.handleClick(e)} to='/' className="ui item">
                         Logout
                         </Link>
+                        {this.state.createClick ? <NewPlaylistModal />: null}
                     </div>
                 </div>
-                
             </div>
         )
     }

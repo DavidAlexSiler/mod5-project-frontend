@@ -18,9 +18,8 @@ class RecentInput extends  React.Component{
 
 
     render(){
-        console.log(this.props)
         return (
-            <Card>
+            <Card className='recent input'>
                 <Card.Content>
                     <Card.Header>recentInput</Card.Header>
                 </Card.Content>
@@ -34,7 +33,7 @@ class RecentInput extends  React.Component{
                                 <Feed.Date content='today' />
                                 {this.props.recentInput.album ?
                                     <Feed.Summary>
-                                        You enjoyed {this.props.recentInput.name} by {this.props.recentInput.artists[0].name}.
+                                        You enjoyed '{this.props.recentInput.name}'' by {this.props.recentInput.artists[0].name}.
                                     </Feed.Summary> :
                                     null}
                             </Feed.Content>

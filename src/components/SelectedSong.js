@@ -38,7 +38,6 @@ class SelectedSong extends React.Component {
     }
 
     handleAddToPlaylist = (e)  => {
-        console.log(this.props, 'handle add to pl')
         fetch(`https://api.spotify.com/v1/playlists/${this.state.value}/tracks`, {
             method: 'POST',
             headers: {
@@ -48,7 +47,6 @@ class SelectedSong extends React.Component {
             body: JSON.stringify({ uris: [`${this.props.uri}`] })
         })
         .then(r => r.json())
-        .then(data => console.log(data))
         .then(window.alert(`added ${this.props.title} to playlist!`))
     }
 
@@ -75,7 +73,7 @@ class SelectedSong extends React.Component {
                         </Card.Description>
                         <select value={this.state.value} onChange={this.handlePlaylistSelect}>
                             <option value="default">Choose a Playlist</option>
-                            <option value="new">Create a new Playlist</option>
+                            {/* <option value="new">Create a new Playlist</option> */}
                             {this.props.playlist.playlists.items.map(p => 
                                 <option value={p.id} id={p.id} uri={p.uri}>
                                     {p.name.slice(0, 20).length > 19 ? p.name.slice(0, 20).concat('...') : 

@@ -1,0 +1,230 @@
+.App {
+    display: flex;
+    justify-content: center;
+    /* border: 1px solid black; */
+    height: 100vh;
+    background: rgb(2,0,36);
+    background: linear-gradient(191deg, rgba(2,0,36,1) 16%, rgba(9,46,121,0.2679446778711485) 64%, rgba(0,170,255,1) 100%);
+}
+
+.listening-room {
+    /* border: 1px solid black; */
+    height: 100vh;
+    width: 50vw;
+    background-color: white;
+}
+
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* nav */
+.ui.secondary.pointing.menu {
+    /* border: 1px solid black; */
+    width: 50vw;
+    display: flex;
+    justify-content: space-around;
+}
+
+/* user card */
+.ui.card {
+    /* display: flex; */
+    position: relative;
+    top: 30px;
+    left: 10px;
+    /* border: 1px solid red */
+}
+
+#profile {
+    position: relative;
+    left: -43px;
+}
+
+/* user card contents */
+.recent.input {
+    display: flex;
+    position: relative;
+    top: 1px;
+    left: 1px;
+}
+
+/* playlist container */
+.playlist-container {
+    /* border: solid black; */
+    display: flex;
+    position: relative;
+    /* justify-content: center; */
+    flex-direction: column;
+    align-items: center;
+    width: 50vw;
+    /* height: 400px; */
+
+}
+
+.playlist-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid black; */
+    flex-wrap: wrap;
+    overflow: auto;
+    padding-top: 20px;
+    height: 95vh;
+    width: 50vw;
+}
+
+.playlist-item {
+    width: 900px;
+    display: flex;
+    justify-content: flex-start;
+    /* border: 1px solid black; */
+    flex: initial;
+    width: 300px;
+    height: 200px;
+}
+
+
+.playlist.modal {
+    /* border: 5px solid black; */
+    height: 100vh;
+}
+
+.playlist.detail.container {
+    /* border: 5px solid black; */
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+    height: 80vh;
+    /* width: 48vw; */
+}
+
+.playlist.detail.card {
+    /* border: 5px solid black; */
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.playlist-item-content {
+    padding-left: 10px;
+}
+
+.friend.search.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.friend.search {
+    /* display: flex; */
+    flex-direction: column;
+    padding-top: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.other.users.card {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+}
+
+.my.friends {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.song.search.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.song.search {
+    /* display: flex; */
+    flex-direction: column;
+    padding-top: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.results.transition {
+    overflow: auto;
+}
+
+.friends.playlist.mapper {
+    display: flex;
+    justify-content: center;
+}
+
+.friends.playlist.grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid black; */
+    flex-wrap: wrap;
+    overflow: auto;
+    padding-top: 20px;
+    height: 74vh;
+    width: 50vw;
+}
+
+.friends.playlist.item {
+    width: 900px;
+    display: flex;
+    justify-content: flex-start;
+    /* border: 1px solid black; */
+    flex: initial;
+    width: 300px;
+    height: 200px;
+}
+
+.friends.playlist.item.content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 10px;
+}
+
+.user.cards.container {
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    overflow: scroll;
+    flex-wrap: wrap;
+    height: 95vh;
+}
+
+.top.artist.header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    position: relative;
+    left: 50px;
+}
+
+.top.artist.card {
+    display: flex;
+    justify-content: space-around;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.top.artist.album.title {
+    display: flex;
+    position: relative;
+    bottom: 50%;
+    align-items: center;
+    justify-content: center;
+    /* padding-bottom: 120px; */
+    font-size: large;
+    font-weight: bold;
+}

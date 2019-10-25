@@ -3,14 +3,10 @@ import _ from 'lodash'
 import { Search } from 'semantic-ui-react'
 import OtherUsersCard from '../components/OtherUsersCard'
 import { connect } from 'react-redux'
-
-// const initialState = { isLoading: false, results: [], value: '', users: [], user: null }
     
 class FriendsContainer extends React.Component{
         
-        
-        // state = initialState
-
+   
         state = {
             isLoading: false, 
             results: [], 
@@ -23,28 +19,18 @@ class FriendsContainer extends React.Component{
             },
             selected: {}
         }
-
-
-    // const source = this.props.login.friends.allUsers.map(user => {
-    //     this.setState({
-    //         title: user.name,
-    //         description: 'spotify user',
-    //         image: user.image
-    //     })
-    // }
         
         setUser = (user) => {
-            // this.props.login.friends.allUsers.map(user => {
                 this.setState({
                     user: {
                         ...this.state.user,
                         title: user.name,
                         description: 'spotify user',
                         image: user.image,
-                        id: user.id
+                        id: user.id,
+                        spotify_id: user.spotify_id
                     }
                 })
-            // })
             return this.state.user
         }
 
@@ -69,18 +55,21 @@ class FriendsContainer extends React.Component{
             })
         }
         
-        handleResultSelect = (e, { result }) => this.setState({ selected: result, value: result.title })
-        
+        handleResultSelect = (e, { result }) => { 
+            this.setState({ 
+                selected: result, 
+                value: result.title,
+                show: true
+            })
+        }   
+    
         handleSearchChange = (e, { value }) => {
             this.setState({ isLoading: true, value })
             
             setTimeout(() => {
-                if (this.state.value.length < 1) console.log("RESET")
-                // return this.setState(initialState)
-                
+                if (this.state.value.length < 1) console.log("RESET")                
                 const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
                 const isMatch = (result) => re.test(result.title)
-                
                 this.setState({
                     isLoading: false,
                     results: _.filter(this.state.users, isMatch),
@@ -89,10 +78,11 @@ class FriendsContainer extends React.Component{
         }
         
         render(){
-            // const { isLoading, value, results } = this.state
         return (
-            <div>
+            <div className='friend search container'>
+                <h1>Search through Friends' Music</h1>
                 <Search 
+                    className='friend search'
                     loading={this.state.isLoading}
                     onResultSelect={this.handleResultSelect}
                     onSearchChange={_.debounce(this.handleSearchChange, 500, {
@@ -100,9 +90,9 @@ class FriendsContainer extends React.Component{
                     })}
                     results={this.state.results}
                     value={this.state.value}
-                    
                     {...this.props}
                 />
+                {this.state.selected.id ? <OtherUsersCard selected={this.state.selected} show={this.state.show} />: null}
             </div>
         )
     }
