@@ -19,15 +19,16 @@ class SongSearch extends Component {
     //SEARCHING
 
     dataMap = (data) => {
+        console.log(data)
             let actualData = data.map((r, key) => { 
-                key={key}
                 return {
                     title: r.name,
                     description: r.artists[0].name,
                     image: r.album.images[2].url,
                     price: '+',
                     uri: r.uri,
-                    id: r.id
+                    id: r.id,
+                    key: r.href
                 }
             }) 
         this.setState({ searchResults: actualData })
@@ -60,14 +61,18 @@ class SongSearch extends Component {
     handleSearchChange = (e) => {
         this.setState({searchInput: e.target.value, isLoading: true}) 
         setTimeout(() => {
-            if (this.state.searchInput.length < 1) return this.setState({
-                searchResults: [],
-                searchInput: '',
-                isLoading: false })
-            else
-                this.setState({ 
-                    isLoading: false, 
-                    searchResults: this.state.searchResults})
+            // debugger
+            if (this.state.searchInput.length <= 1) this.setState({searchResults: []})
+
+            // this.setState({
+            //     searchResults: [],
+            //     searchInput: '',
+            //     isLoading: false })
+            const re = new RegExp(_.escapeRegExp(this.state.searchInput), 'i')
+            const isMatch = (result) => re.test(result.title)
+            this.setState({ 
+                isLoading: false, 
+                searchResults: _.filter(this.state.searchResults, isMatch)})
         }, 300)
     }
 
@@ -84,6 +89,7 @@ class SongSearch extends Component {
                 <h1>Search For Songs</h1>
                 <Search
                     className='song search'
+                    loading={this.state.isLoading}
                     onResultSelect={this.handleResultSelect}
                     onSearchChange={_.debounce((e) => this.handleSearchChange(e), 500, {
                         leading: true,

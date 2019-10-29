@@ -78,6 +78,7 @@ class FriendsContainer extends React.Component{
         }
         
         render(){
+            
         return (
             <div className='friend search container'>
                 <h1>Search through Friends' Music</h1>

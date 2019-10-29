@@ -67,4 +67,3 @@ let mapStateToProps = (state) => {
 export default connect(mapStateToProps)(PlaylistItem)
 
 
-    {/* < PlaylistDetailsContainer playlistDetails = { this.state.playlistDetails } playlistName = { name } /> */}

@@ -70,7 +70,7 @@ class UserCard extends React.Component{
                     <div className="image">
                         {this.props.login.userData.image === null ? 
                         <img src={'https://thumbs.dreamstime.com/b/no-user-profile-picture-hand-drawn-illustration-53840792.jpg'} alt={'your face here'} />  :
-                            <img src={this.props.login.userData.image}/>}
+                            <img src={this.props.login.userData.image} alt={'profile pic'}/>}
                     </div>
                     <div className="content">
                         <h2>{this.props.login.userData.name}</h2>
@@ -86,8 +86,8 @@ class UserCard extends React.Component{
                         </div>
                 </div>
                 <h1 className='top artist header'>My Top Artists</h1>
-                {this.props.login.userTopArtist.items ? this.props.login.userTopArtist.items.map(artist => 
-                <TopArtistCard artist={artist}/>): 
+                {this.props.login.userTopArtist.items ? this.props.login.userTopArtist.items.map((artist, i) => 
+                <TopArtistCard artist={artist} key={i} />): 
                 null}
             </div>
         )
