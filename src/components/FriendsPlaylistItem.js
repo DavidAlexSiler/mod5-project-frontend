@@ -3,7 +3,6 @@ import { Icon, Item } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import FriendsPlaylistDetails from './FriendsPlaylistDetails'
 
-
 class FriendsPlaylistItem extends React.Component {
 
     state = {

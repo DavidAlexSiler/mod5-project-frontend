@@ -5,18 +5,6 @@ import { connect } from 'react-redux'
 
 class RecentInput extends  React.Component{
 
-    
-
-    // componentDidUpdate = (prevProps) => {
-    //     if(prevProps !== this.props){
-            
-    //     }
-    // }   
-
-    // WHAT IN THE FUCK YOU FUCK I FUCKING FUCK YOU
-
-
-
     render(){
         return (
             <Card className='recent input'>
@@ -43,8 +31,7 @@ class RecentInput extends  React.Component{
             </Card>
         )
     }
-
-    }
+}
 
 
 let mapStateToProps = (state) => {

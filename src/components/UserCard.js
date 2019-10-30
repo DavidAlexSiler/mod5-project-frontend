@@ -21,7 +21,6 @@ class UserCard extends React.Component{
             }
     }
 
-
     getUserRecentlyPlayed = (e) => {
         fetch('https://api.spotify.com/v1/me/player/recently-played/', {
             method: 'GET',
@@ -49,7 +48,6 @@ class UserCard extends React.Component{
             }))
     }
 
-
     getAllUsersPlaylists = () => {
         fetch('https://api.spotify.com/v1/me/playlists', {
             method: 'GET',
@@ -61,7 +59,6 @@ class UserCard extends React.Component{
             .then(r => r.json())
             .then(data => this.props.dispatch({ type: "GET_PLAYLISTS", playlists: data }))
     }
-
 
     render(){
         return (

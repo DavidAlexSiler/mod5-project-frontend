@@ -34,10 +34,4 @@ class PlaylistDetails extends React.Component{
     }
 }
 
-// let mapStateToProps = (state) => {
-//     return state
-// }
-
-// export default connect(mapStateToProps)(PlaylistDetails)
-
 export default PlaylistDetails

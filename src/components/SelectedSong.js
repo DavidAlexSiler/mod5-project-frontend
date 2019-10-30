@@ -73,7 +73,6 @@ class SelectedSong extends React.Component {
                         </Card.Description>
                         <select value={this.state.value} onChange={this.handlePlaylistSelect}>
                             <option value="default">Choose a Playlist</option>
-                            {/* <option value="new">Create a new Playlist</option> */}
                             {this.props.playlist.playlists.items.map(p => 
                                 <option value={p.id} id={p.id} uri={p.uri}>
                                     {p.name.slice(0, 20).length > 19 ? p.name.slice(0, 20).concat('...') : 
@@ -99,7 +98,7 @@ class SelectedSong extends React.Component {
             </Card.Group>
         )
     }
-    }
+}
 
 let mapPropsToState = (state) => {
     return state

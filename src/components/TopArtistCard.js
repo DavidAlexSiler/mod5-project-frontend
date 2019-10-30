@@ -9,7 +9,6 @@ export class TopArtistCard extends Component {
     }
 
     displayAlbum = (e) => {
-        console.log('name', e.target.id)
         e.target.style.opacity = 1
         this.setState({
             hovered: false
@@ -17,12 +16,10 @@ export class TopArtistCard extends Component {
     }
 
     displayArtistName = (e) => {
-        console.log('name', e.target.style.opacity)
         e.target.style.opacity = 1
     }
 
     hideAlbum = (e) => {
-        // console.log(e.target)
         e.target.style.opacity  = 0.4
         this.setState({
             hovered: true
@@ -46,8 +43,7 @@ export class TopArtistCard extends Component {
                 onMouseEnter={(e) => this.hideAlbum(e)} 
                 onMouseLeave={(e) => this.displayAlbum(e)} />
                 {this.state.hovered ? <div className='top artist album title' onMouseOut={(e) => this.hideAlbum(e)} onMouseEnter={(e) => this.hideAlbum(e)} 
->{this.props.artist.name}</div> : null}
-
+                    >{this.props.artist.name}</div> : null}
             </Card>
         )
     }

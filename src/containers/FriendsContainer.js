@@ -6,7 +6,6 @@ import { connect } from 'react-redux'
     
 class FriendsContainer extends React.Component{
         
-   
         state = {
             isLoading: false, 
             results: [], 

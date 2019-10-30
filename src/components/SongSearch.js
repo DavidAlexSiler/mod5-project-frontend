@@ -61,13 +61,7 @@ class SongSearch extends Component {
     handleSearchChange = (e) => {
         this.setState({searchInput: e.target.value, isLoading: true}) 
         setTimeout(() => {
-            // debugger
             if (this.state.searchInput.length <= 1) this.setState({searchResults: []})
-
-            // this.setState({
-            //     searchResults: [],
-            //     searchInput: '',
-            //     isLoading: false })
             const re = new RegExp(_.escapeRegExp(this.state.searchInput), 'i')
             const isMatch = (result) => re.test(result.title)
             this.setState({ 
@@ -77,7 +71,6 @@ class SongSearch extends Component {
     }
 
     // SELECTING
-
     handleResultSelect = (e, { result }, ) => {
         this.props.dispatch({ type: "SELECT_SONG", selectedSong: [...this.props.songsearch.selectedSong, result] })
     }

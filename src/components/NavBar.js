@@ -3,7 +3,6 @@ import 'semantic-ui-css/semantic.min.css';
 import { Link } from 'react-router-dom'
 import NewPlaylistModal from './NewPlaylistModal';
 
-
 class NavBar extends React.Component{
     
     state = {
@@ -49,7 +48,6 @@ class NavBar extends React.Component{
                     <a onClick={(e) => this.handleCreateNew(e)} className="item">
                         New Playlist
                     </a>
-
                     <div className="right menu">
                         <Link onClick={(e) => this.handleClick(e)} to='/' className="ui item">
                         Logout

@@ -20,7 +20,6 @@ class OtherUsersCard extends React.Component {
                 'content-type': 'application/json'
             },
             body: JSON.stringify({
-                // id: this.props.login.userData.id,
                 user_id: this.props.login.userData.id,
                 followee_id: id
             })
@@ -52,7 +51,6 @@ class OtherUsersCard extends React.Component {
         })
         .then(r => r.json())
         .then(data => this.props.dispatch({ type: "GET_FRIENDS_PLAYLISTS", friendsPlaylists: data }))
-        // .then(this.showFriendsPlaylists())
     }
 
     handleCancel = () => {

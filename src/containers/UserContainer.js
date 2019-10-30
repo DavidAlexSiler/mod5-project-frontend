@@ -16,7 +16,6 @@ class UserContainer extends React.Component{
         return (
             <div>
                 {this.props.userData ? <UserCard /> : null}
-                {/* {TopArtistMapper} */}
             </div>
         )
     }

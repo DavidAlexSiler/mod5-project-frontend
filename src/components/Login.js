@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import currentInput from '../images/currentInput.png'
 class Login extends Component {
 
-    
-    
     renderFrontPage = () => {
         return (
             <div className='login'>
@@ -15,6 +13,7 @@ class Login extends Component {
             </div>
             ) 
         } 
+        
     render() {
         return (
             <div className='front-page' >
