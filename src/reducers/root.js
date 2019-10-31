@@ -1,7 +1,7 @@
 import loginReducer from './login';
 import songsearchReducer from './songsearch';
-import playlistReducer from './playlist'
-import friendsReducer from './friends'
+import playlistReducer from './playlist';
+import friendsReducer from './friends';
 import { combineReducers } from 'redux';
 
 export default combineReducers({
