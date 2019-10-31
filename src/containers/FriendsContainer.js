@@ -3,6 +3,7 @@ import _ from 'lodash'
 import { Search } from 'semantic-ui-react'
 import OtherUsersCard from '../components/OtherUsersCard'
 import { connect } from 'react-redux'
+import { appUrl } from '../services/backend'
     
 class FriendsContainer extends React.Component{
         
@@ -39,7 +40,7 @@ class FriendsContainer extends React.Component{
 
         //get all users
         componentDidMount = (e) => {
-            fetch('http://localhost:3000/api/v1/users', {
+            fetch(`${appUrl}users`, {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json'

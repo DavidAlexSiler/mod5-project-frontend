@@ -2,6 +2,7 @@ import React from 'react'
 import { Card, Image, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import FriendsPlaylistMapper from '../containers/FriendsPlaylistMapper'
+import { appUrl } from '../services/backend'
 class OtherUsersCard extends React.Component {
 
     state = {
@@ -14,7 +15,7 @@ class OtherUsersCard extends React.Component {
         this.makeFriends(id)
     }
     makeFriends = (e, id) => {
-        fetch('http://localhost:3000/api/v1/follows', {
+        fetch(`${appUrl}follows`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -30,7 +31,7 @@ class OtherUsersCard extends React.Component {
     }
 
     getFriends = () => {
-        fetch('http://localhost:3000/api/v1/follows', {
+        fetch(`${appUrl}follows`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json'
