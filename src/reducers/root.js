@@ -6,7 +6,7 @@ import { combineReducers } from 'redux';
 // console.log(songsearchReducer, 'song  search')
 export default combineReducers({
     login: loginReducer,
-    songsearch: songsearchReducer,
+    // songsearch: songsearchReducer,
     playlist: playlistReducer,
     friends: friendsReducer
 });
