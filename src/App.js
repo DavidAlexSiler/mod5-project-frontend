@@ -16,7 +16,8 @@ const App = () =>  {
     return (
       <div className="App">
         <div className='listening-room'>
-          {window.location.href !== 'http://localhost:8888/' ? <NavBar />: null}
+          {/* {window.location.href !== 'http://localhost:8888/' ? <NavBar />: null} */}
+          {window.location.href !== "https://current-input-front.herokuapp.com" ? <NavBar />: null}
           <Switch>
             <Route exact path="/" component={Login} />
             <Route path='/callback' component={UserContainer} />
