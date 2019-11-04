@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 class UserContainer extends React.Component{
 
     componentDidMount = () => {
-        this.props.isLoggedIn ? console.log('nullUC') : 
+        this.props.isLoggedIn ? console.log('null') : 
         getUser().then(data => {
             this.props.dispatch({ type: "GET_USER", data: data })
     })
